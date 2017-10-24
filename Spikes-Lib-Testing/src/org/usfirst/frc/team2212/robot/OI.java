@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private Joystick driverRight = new Joystick(2);
+	private Joystick driverRight = new Joystick(0);
 	private Joystick driverLeft = new Joystick(1);
 	
 	public OI(){
@@ -20,12 +20,12 @@ public class OI {
 
 	// returns the adjusted value of the Rotate
 	// switch this to switch between the 2 drive arcade methods
-	public double getRotation() {
-		return adjustInput(-driverLeft.getX());
+	public double getLeft() {
+		return adjustInput(-driverLeft.getY());
 	}
 
 	// returns the adjusted value of the driving right joystick's y
-	public double getForward() {
+	public double getRight() {
 		return adjustInput(driverRight.getY());
 	}
 }
