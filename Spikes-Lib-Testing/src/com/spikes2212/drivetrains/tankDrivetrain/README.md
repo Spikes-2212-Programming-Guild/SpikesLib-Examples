@@ -1,3 +1,4 @@
-'''java
-int i = 5;
-'''
+```javascript
+var s = "JavaScript syntax highlighting";
+alert(s);
+```
