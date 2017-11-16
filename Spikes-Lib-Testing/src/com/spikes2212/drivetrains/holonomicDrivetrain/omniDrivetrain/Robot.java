@@ -6,6 +6,7 @@ import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.HolonomicDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveHolonomic;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 import com.spikes2212.utils.DoubleSpeedcontroller;
 
@@ -30,7 +31,7 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	HolonomicDrivetrain drivetrain;
+	public static HolonomicDrivetrain drivetrain;
 	DashBoardController dbc;
 
 	/**
@@ -52,6 +53,7 @@ public class Robot extends IterativeRobot {
 		drivetrain = new HolonomicDrivetrain(leftControl::set, rightControl::set,
 				new DoubleSpeedcontroller(leftControl, rightControl)::set,
 				new DoubleSpeedcontroller(rearMotor, frontMotor)::set);
+		drivetrain.setDefaultCommand(new DriveHolonomic(drivetrain, oi::getRightY, oi::getLeftX));
 
 		oi = new OI();
 		dbc = new DashBoardController();
