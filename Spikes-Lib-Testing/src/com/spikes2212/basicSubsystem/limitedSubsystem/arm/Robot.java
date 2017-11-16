@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
 		CANTalon armMotor = new CANTalon(RobotMap.CAN.ARM);
 		DigitalInput upperLimit = new DigitalInput(RobotMap.DIO.UPPER_LIMIT);
 		DigitalInput downLimit = new DigitalInput(RobotMap.DIO.DOWN_LIMIT);
-		arm = new BasicSubsystem(armMotor::set, upperLimit::get, downLimit::get);
+		arm = new BasicSubsystem(armMotor::set, upperLimit::get, () -> !downLimit.get()); //down is in default true
 		oi = new OI();
 		dbc = new DashBoardController();
 		// chooser.addObject("My Auto", new MyAutoCommand());
