@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static BasicSubsystem shooter;
-	public static final Supplier<Double> shootingSpeed = ConstantHandler.addConstantDouble("SHOOTING_SPEED", 0.3);
+	public static Supplier<Double> shootingSpeed;
 	public static CANTalon shooterMotor = new CANTalon(RobotMap.CAN.SHOOTER);
 	DashBoardController dbc;
 
@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
+		shootingSpeed  = ConstantHandler.addConstantDouble("SHOOTING_SPEED", 0.3);
 		shooter = new BasicSubsystem(shooterMotor::set);
 		oi = new OI();
 		dbc = new DashBoardController();
@@ -59,6 +59,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		dbc.update();
 	}
 
 	/**
@@ -91,6 +92,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		dbc.update();
 	}
 
 	@Override
