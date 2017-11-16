@@ -12,6 +12,7 @@ import org.usfirst.frc.team2212.robot.subsystems.Shooter;
 
 import com.ctre.CANTalon;
 import com.spikes2212.dashboard.ConstantHandler;
+import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.BasicSubsystem;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -36,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static BasicSubsystem shooter;
 	public static final Supplier<Double> shootingSpeed = ConstantHandler.addConstantDouble("SHOOTING_SPEED", 0.3);
 	public static CANTalon shooterMotor = new CANTalon(RobotMap.CAN.SHOOTER);
+	DashBoardController dbc;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -45,6 +47,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		
 		shooter = new BasicSubsystem(shooterMotor::set);
+		oi = new OI();
+		dbc = new DashBoardController();
+		dbc.addDouble("SHOOTING_SPEED", shooterMotor::get);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 	}
 
