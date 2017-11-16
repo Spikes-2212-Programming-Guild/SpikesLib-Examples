@@ -29,8 +29,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final Supplier<Double> armDownSpeed = ConstantHandler.addConstantDouble("arm down speed", -0.3);
-	public static final Supplier<Double> armUpSpeed = ConstantHandler.addConstantDouble("arm up speed", 0.3);
+	public static Supplier<Double> armDownSpeed;
+	public static Supplier<Double> armUpSpeed;
 
 	public static OI oi;
 	public static BasicSubsystem arm;
@@ -45,6 +45,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		armDownSpeed = ConstantHandler.addConstantDouble("arm down speed", -0.3);
+		armUpSpeed = ConstantHandler.addConstantDouble("arm up speed", 0.3);
 		CANTalon armMotor = new CANTalon(RobotMap.CAN.ARM);
 		DigitalInput upperLimit = new DigitalInput(RobotMap.DIO.UPPER_LIMIT);
 		DigitalInput downLimit = new DigitalInput(RobotMap.DIO.DOWN_LIMIT);
@@ -71,6 +73,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		dbc.update();
 	}
 
 	/**
@@ -106,6 +109,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		dbc.update();
 	}
 
 	@Override
