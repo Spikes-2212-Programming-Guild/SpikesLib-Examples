@@ -37,11 +37,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		drivetrain = new TankDrivetrain(
-				new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_LEFT_1),
-						new CANTalon(RobotMap.CAN.DRIVE_LEFT_2))::set,
-				new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1),
-						new CANTalon(RobotMap.CAN.DRIVE_RIGHT_2))::set);
+		DoubleSpeedcontroller leftControl = new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_LEFT_1),
+				new CANTalon(RobotMap.CAN.DRIVE_LEFT_2));
+		DoubleSpeedcontroller rightControl = new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1),
+				new CANTalon(RobotMap.CAN.DRIVE_RIGHT_2));
+		leftControl.setInverted(true);
+		drivetrain = new TankDrivetrain(leftControl::set, rightControl::set);
 		oi = new OI();
 		drivetrain.setDefaultCommand(new DriveTank(drivetrain, oi::getLeft, oi::getRight));
 		dbc = new DashBoardController();
@@ -126,6 +127,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
-		
+
 	}
 }

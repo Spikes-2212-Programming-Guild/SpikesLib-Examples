@@ -21,7 +21,7 @@ public class OI {
 	// returns the adjusted value of the Rotate
 	// switch this to switch between the 2 drive arcade methods
 	public double getLeft() {
-		return adjustInput(-driverLeft.getY());
+		return adjustInput(driverLeft.getY());
 	}
 
 	// returns the adjusted value of the driving right joystick's y
