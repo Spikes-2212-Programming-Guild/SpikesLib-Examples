@@ -12,7 +12,7 @@ public class RobotMap {
 	}
 	
 	public interface DIO{
-		public static final int UPPER_LIMIT = 0;
+		public static final int UPPER_LIMIT = 1;
 		public static final int DOWN_LIMIT = 0;
 	}
 }
