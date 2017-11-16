@@ -1,13 +1,7 @@
 package com.spikes2212.basicSubsystem.unlimitedSubsystem;
 
-import org.usfirst.frc.team2212.robot.subsystems.Climber;
-import org.usfirst.frc.team2212.robot.subsystems.Feeder;
-import org.usfirst.frc.team2212.robot.subsystems.Gear;
-import org.usfirst.frc.team2212.robot.subsystems.Picker;
-import org.usfirst.frc.team2212.robot.subsystems.Shooter;
 
 import com.spikes2212.genericsubsystems.commands.MoveBasicSubsystem;
-import com.spikes2212.genericsubsystems.commands.MoveLimitedSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -23,7 +17,7 @@ public class OI /*GEVALD*/ {
 	private Button shootButton;
 	
 	public OI(){
-		joystickRight = new Joystick(0);
+		joystickRight = new Joystick(1);
 		
 		shootButton = new JoystickButton(joystickRight, 1);
 		

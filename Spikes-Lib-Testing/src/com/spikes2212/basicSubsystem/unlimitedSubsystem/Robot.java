@@ -3,13 +3,6 @@ package com.spikes2212.basicSubsystem.unlimitedSubsystem;
 
 import java.util.function.Supplier;
 
-import org.usfirst.frc.team2212.robot.subsystems.Climber;
-import org.usfirst.frc.team2212.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team2212.robot.subsystems.Feeder;
-import org.usfirst.frc.team2212.robot.subsystems.Gear;
-import org.usfirst.frc.team2212.robot.subsystems.Picker;
-import org.usfirst.frc.team2212.robot.subsystems.Shooter;
-
 import com.ctre.CANTalon;
 import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.dashboard.DashBoardController;

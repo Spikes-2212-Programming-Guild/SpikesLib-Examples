@@ -12,24 +12,13 @@ public class RobotMap {
 	}
 
 	public interface CAN {
-		public static final int DRIVE_LEFT_1 = 6;
-		public static final int DRIVE_LEFT_2 = 3;
-		public static final int DRIVE_RIGHT_1 = 5;
-		public static final int DRIVE_RIGHT_2 = 1;
-		public static final int CLIMBER = 2;
-		public static final int SHOOTER = 4;
+		public static final int SHOOTER = 2;
 	}
 
 	public interface PWM {
-		public static final int FEEDER = 3;
-		public static final int BLENDER = 2;// part of the feeder subsystem
-		public static final int GEAR_DROPPER = 1;
-		public static final int PICKER = 0;
 	}
 	
 	public interface DIO{
-		public static final int GEAR_DROPPER_OPEN = 0;
-		public static final int GEAR_DROPPER_CLOSE = 1;
 	}
 
 	// For example to map the left and right motors, you could define the
