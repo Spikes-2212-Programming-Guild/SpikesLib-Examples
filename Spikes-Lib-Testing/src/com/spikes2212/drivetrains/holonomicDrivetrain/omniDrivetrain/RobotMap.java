@@ -8,11 +8,11 @@ package com.spikes2212.drivetrains.holonomicDrivetrain.omniDrivetrain;
  */
 public class RobotMap {
 	public interface CAN {
-		public static final int DRIVE_LEFT_1 = 1;
+		public static final int DRIVE_LEFT_1 = 6;
 		public static final int DRIVE_LEFT_2 = 3;
-		public static final int DRIVE_RIGHT_1 = 4;
+		public static final int DRIVE_RIGHT_1 = 1;
 		public static final int DRIVE_RIGHT_2 = 5;
 		public static final int DRIVE_FRONT = 2;
-		public static final int DRIVE_REAR = 0;
+		public static final int DRIVE_REAR = 4;
 	}
 }
