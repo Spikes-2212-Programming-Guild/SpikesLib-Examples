@@ -57,8 +57,10 @@ public class Robot extends IterativeRobot {
 
 		oi = new OI();
 		dbc = new DashBoardController();
-		dbc.addDouble("left", new CANTalon(RobotMap.CAN.DRIVE_LEFT_1)::get);
-		dbc.addDouble("right", new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1)::get);
+		dbc.addDouble("left", leftControl::get);
+		dbc.addDouble("right", rightControl::get);
+		dbc.addDouble("rear", rearMotor::get);
+		dbc.addDouble("front", frontMotor::get);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
@@ -76,6 +78,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		dbc.update();
 	}
 
 	/**
@@ -111,6 +114,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		dbc.update();
 	}
 
 	@Override
