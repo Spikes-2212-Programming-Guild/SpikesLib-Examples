@@ -1,4 +1,4 @@
-package com.spikes2212.drivetrains.tankDrivetrain;
+package com.spikes2212.drivetrains.holonomicDrivetrain.omniDrivetrain;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -10,7 +10,9 @@ public class RobotMap {
 	public interface CAN {
 		public static final int DRIVE_LEFT_1 = 6;
 		public static final int DRIVE_LEFT_2 = 3;
-		public static final int DRIVE_RIGHT_1 = 5;
-		public static final int DRIVE_RIGHT_2 = 1;
+		public static final int DRIVE_RIGHT_1 = 1;
+		public static final int DRIVE_RIGHT_2 = 5;
+		public static final int DRIVE_FRONT = 2;
+		public static final int DRIVE_REAR = 4;
 	}
 }

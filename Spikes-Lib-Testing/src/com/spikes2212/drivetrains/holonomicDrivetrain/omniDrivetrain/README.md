@@ -1,0 +1,2 @@
+This is an example of a code for a omni drive using [SpikesLib](https://github.com/Spikes-2212-Programming-Guild/Spikes-Lib). <br />
+If this is run on a robot with the same ports it will work without problems.

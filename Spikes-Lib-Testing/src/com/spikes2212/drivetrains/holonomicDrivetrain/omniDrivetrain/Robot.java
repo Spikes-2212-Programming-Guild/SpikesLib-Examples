@@ -1,14 +1,17 @@
 
-package com.spikes2212.drivetrains.tankDrivetrain;
+package com.spikes2212.drivetrains.holonomicDrivetrain.omniDrivetrain;
 
 import com.ctre.CANTalon;
 import com.spikes2212.dashboard.DashBoardController;
+import com.spikes2212.genericsubsystems.drivetrains.HolonomicDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveHolonomic;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 import com.spikes2212.utils.DoubleSpeedcontroller;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -28,7 +31,7 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	TankDrivetrain drivetrain;
+	public static HolonomicDrivetrain drivetrain;
 	DashBoardController dbc;
 
 	/**
@@ -37,16 +40,27 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		drivetrain = new TankDrivetrain(
-				new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_LEFT_1),
-						new CANTalon(RobotMap.CAN.DRIVE_LEFT_2))::set,
-				new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1),
-						new CANTalon(RobotMap.CAN.DRIVE_RIGHT_2))::set);
+		DoubleSpeedcontroller leftControl = new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_LEFT_1),
+				new CANTalon(RobotMap.CAN.DRIVE_LEFT_2));
+		DoubleSpeedcontroller rightControl = new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1),
+				new CANTalon(RobotMap.CAN.DRIVE_RIGHT_2));
+		leftControl.setInverted(true);
+
+		CANTalon rearMotor = new CANTalon(RobotMap.CAN.DRIVE_REAR);
+		CANTalon frontMotor = new CANTalon(RobotMap.CAN.DRIVE_FRONT);
+		rearMotor.setInverted(true);
+
+		drivetrain = new HolonomicDrivetrain(leftControl::set, rightControl::set,
+				new DoubleSpeedcontroller(leftControl, rightControl)::set,
+				new DoubleSpeedcontroller(rearMotor, frontMotor)::set);
+		drivetrain.setDefaultCommand(new DriveHolonomic(drivetrain, oi::getRightY, oi::getLeftX));
+
 		oi = new OI();
-		drivetrain.setDefaultCommand(new DriveTank(drivetrain, oi::getLeft, oi::getRight));
 		dbc = new DashBoardController();
-		dbc.addDouble("left", new CANTalon(RobotMap.CAN.DRIVE_LEFT_1)::get);
-		dbc.addDouble("right", new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1)::get);
+		dbc.addDouble("left", leftControl::get);
+		dbc.addDouble("right", rightControl::get);
+		dbc.addDouble("rear", rearMotor::get);
+		dbc.addDouble("front", frontMotor::get);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
@@ -64,6 +78,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		dbc.update();
 	}
 
 	/**
@@ -99,6 +114,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		dbc.update();
 	}
 
 	@Override
@@ -126,6 +142,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
-		
+
 	}
 }
