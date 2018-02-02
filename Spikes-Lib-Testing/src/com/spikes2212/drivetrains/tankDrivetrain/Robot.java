@@ -1,11 +1,11 @@
 
 package com.spikes2212.drivetrains.tankDrivetrain;
 
-import com.ctre.CANTalon;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
+import com.spikes2212.genericsubsystems.utils.InvertedConsumer;
 import com.spikes2212.utils.DoubleSpeedcontroller;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -37,16 +37,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		drivetrain = new TankDrivetrain(
-				new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_LEFT_1),
-						new CANTalon(RobotMap.CAN.DRIVE_LEFT_2))::set,
-				new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1),
-						new CANTalon(RobotMap.CAN.DRIVE_RIGHT_2))::set);
+		drivetrain = new TankDrivetrain(new InvertedConsumer(SubsystemComponents.Drivetrain.LEFT_SPEED_CONTROLLER::set),
+				SubsystemComponents.Drivetrain.RIGHT_SPEED_CONTROLLER::set);
 		oi = new OI();
 		drivetrain.setDefaultCommand(new DriveTank(drivetrain, oi::getLeft, oi::getRight));
 		dbc = new DashBoardController();
-		dbc.addDouble("left", new CANTalon(RobotMap.CAN.DRIVE_LEFT_1)::get);
-		dbc.addDouble("right", new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1)::get);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
@@ -126,6 +121,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
-		
+
 	}
 }
