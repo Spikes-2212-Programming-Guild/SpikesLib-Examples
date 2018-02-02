@@ -8,6 +8,7 @@ import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveHolonomic;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
+import com.spikes2212.genericsubsystems.utils.InvertedConsumer;
 import com.spikes2212.utils.DoubleSpeedcontroller;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -40,27 +41,19 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		DoubleSpeedcontroller leftControl = new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_LEFT_1),
-				new CANTalon(RobotMap.CAN.DRIVE_LEFT_2));
-		DoubleSpeedcontroller rightControl = new DoubleSpeedcontroller(new CANTalon(RobotMap.CAN.DRIVE_RIGHT_1),
-				new CANTalon(RobotMap.CAN.DRIVE_RIGHT_2));
-		leftControl.setInverted(true);
+		drivetrain = new HolonomicDrivetrain(new InvertedConsumer(SubsystemComponents.Drivetrain.LEFT_MOTOR::set),
+				SubsystemComponents.Drivetrain.RIGHT_MOTOR::set, (Double speed) -> {
+					SubsystemComponents.Drivetrain.LEFT_MOTOR.set(-speed);
+					SubsystemComponents.Drivetrain.RIGHT_MOTOR.set(speed);
+				}, (Double speed) -> {
+					SubsystemComponents.Drivetrain.REAR_MOTOR.set(-speed);
+					SubsystemComponents.Drivetrain.FRONT_MOTOR.set(speed);
+				});
 
-		CANTalon rearMotor = new CANTalon(RobotMap.CAN.DRIVE_REAR);
-		CANTalon frontMotor = new CANTalon(RobotMap.CAN.DRIVE_FRONT);
-		rearMotor.setInverted(true);
-
-		drivetrain = new HolonomicDrivetrain(leftControl::set, rightControl::set,
-				new DoubleSpeedcontroller(leftControl, rightControl)::set,
-				new DoubleSpeedcontroller(rearMotor, frontMotor)::set);
 		drivetrain.setDefaultCommand(new DriveHolonomic(drivetrain, oi::getRightY, oi::getLeftX));
 
 		oi = new OI();
 		dbc = new DashBoardController();
-		dbc.addDouble("left", leftControl::get);
-		dbc.addDouble("right", rightControl::get);
-		dbc.addDouble("rear", rearMotor::get);
-		dbc.addDouble("front", frontMotor::get);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}

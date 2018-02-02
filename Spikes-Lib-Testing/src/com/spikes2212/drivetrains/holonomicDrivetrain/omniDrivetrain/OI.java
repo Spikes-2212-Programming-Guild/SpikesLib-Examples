@@ -1,5 +1,6 @@
 package com.spikes2212.drivetrains.holonomicDrivetrain.omniDrivetrain;
 
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -14,9 +15,9 @@ public class OI {
 	private Joystick driverLeft = new Joystick(1);
 	
 	public OI(){
-		JoystickButton tankControlButton = new JoystickButton(driverRight, 0);
+		JoystickButton tankControlButton = new JoystickButton(driverRight, 1);
 		
-		tankControlButton.whileHeld(new DriveTank(Robot.drivetrain, this::getLeftY, this::getRightY));
+		tankControlButton.whileHeld(new DriveArcade(Robot.drivetrain, this::getRightY, this::getLeftX));
 	}
 
 	// receives input, returns the adjusted input for better sensitivity
