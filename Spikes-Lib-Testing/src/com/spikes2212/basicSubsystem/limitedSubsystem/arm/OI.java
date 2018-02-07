@@ -1,5 +1,6 @@
 package com.spikes2212.basicSubsystem.limitedSubsystem.arm;
 
+
 import com.spikes2212.genericsubsystems.commands.MoveBasicSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -19,7 +20,12 @@ public class OI {
 		moveArmUp = new JoystickButton(joystick, 1);
 		moveArmDown = new JoystickButton(joystick, 2);
 		
-		moveArmUp.whenPressed(new MoveBasicSubsystem(Robot.arm, Robot.armUpSpeed));
-		moveArmDown.whenPressed(new MoveBasicSubsystem(Robot.arm, Robot.armDownSpeed));
+		
+		/*MoveBasicSubsystem is a generic command to move basic subsystems. 
+		 * it receives a basic subsystem and a constant (the speed).
+		 * @see MoveBasicSubsystem
+		 */
+		moveArmUp.whenPressed(new MoveBasicSubsystem(Robot.arm, SubsystemConstants.Arm.ARM_UP_SPEED));
+		moveArmDown.whenPressed(new MoveBasicSubsystem(Robot.arm, SubsystemConstants.Arm.ARM_DOWN_SPEED));
 	}
 }
