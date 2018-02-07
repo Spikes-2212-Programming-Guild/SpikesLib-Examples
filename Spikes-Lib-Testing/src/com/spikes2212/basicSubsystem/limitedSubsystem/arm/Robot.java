@@ -3,22 +3,12 @@ package com.spikes2212.basicSubsystem.limitedSubsystem.arm;
 
 import java.util.function.Supplier;
 
-import com.ctre.CANTalon;
-import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.BasicSubsystem;
-import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
-import com.spikes2212.utils.DoubleSpeedcontroller;
+import com.spikes2212.genericsubsystems.utils.limitationFunctions.TwoLimits;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,41 +19,42 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static Supplier<Double> armDownSpeed;
-	public static Supplier<Double> armUpSpeed;
-
 	public static OI oi;
 	public static BasicSubsystem arm;
 
-	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
 	DashBoardController dbc;
 
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
 	@Override
 	public void robotInit() {
-		armDownSpeed = ConstantHandler.addConstantDouble("arm down speed", -0.3);
-		armUpSpeed = ConstantHandler.addConstantDouble("arm up speed", 0.3);
-		CANTalon armMotor = new CANTalon(RobotMap.CAN.ARM);
-		DigitalInput upperLimit = new DigitalInput(RobotMap.DIO.UPPER_LIMIT);
-		DigitalInput downLimit = new DigitalInput(RobotMap.DIO.DOWN_LIMIT);
-		arm = new BasicSubsystem(armMotor::set, upperLimit::get, () -> !downLimit.get()); //down is in default true
+
+		// initializing the arm and its components
+
+		Supplier<Boolean> armUpLimit = SubsystemComponents.Arm.UPPER_LIMIT::get;
+		/*
+		 * for the example we chose that the down limit is default true (normally open)
+		 * so you have to invert it.
+		 */
+		Supplier<Boolean> armDownLimit = () -> !SubsystemComponents.Arm.DOWN_LIMIT.get();
+
+		TwoLimits armLimits = new TwoLimits(armUpLimit, armDownLimit);
+		arm = new BasicSubsystem(SubsystemComponents.Arm.ARM_MOTOR::set, armLimits);
+
+		// initializing oi and the dash board controller
 		oi = new OI();
 		dbc = new DashBoardController();
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
-		dbc.addDouble("arm speed", armMotor::get);
-		dbc.addBoolean("is up", upperLimit::get);
-		dbc.addBoolean("is down", downLimit::get);
+
+		// adding the arm's speed to the dash board
+		dbc.addDouble("arm speed", SubsystemComponents.Arm.ARM_MOTOR::get);
+
+		// adding the arm's up and down limits' feedback to the dash board
+		dbc.addBoolean("is up", SubsystemComponents.Arm.UPPER_LIMIT::get);
+		dbc.addBoolean("is down", SubsystemComponents.Arm.DOWN_LIMIT::get);
 	}
 
 	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
+	 * This function is called once each time the robot enters Disabled mode. You
+	 * can use it to reset any subsystem information you want to clear when the
+	 * robot is disabled.
 	 */
 	@Override
 	public void disabledInit() {
@@ -73,34 +64,32 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		//updating the dash board controller
 		dbc.update();
 	}
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
+	 * between different autonomous modes using the dashboard. The sendable chooser
+	 * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
+	 * remove all of the chooser code and uncomment the getString code to get the
+	 * auto name from the text box below the Gyro
 	 *
 	 * You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
+	 * chooser code above (like the commented example) or additional comparisons to
+	 * the switch structure below with additional strings & commands.
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
 
 		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
+		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		 * switch(autoSelected) { case "My Auto": autonomousCommand = new
+		 * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
+		 * ExampleCommand(); break; }
 		 */
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
 	}
 
 	/**
@@ -109,6 +98,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		//updating the dash board controller
 		dbc.update();
 	}
 
@@ -118,8 +108,6 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
 	}
 
 	/**
@@ -128,6 +116,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		//updating the dash board controller
 		dbc.update();
 	}
 
@@ -136,7 +125,5 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
-
 	}
 }
