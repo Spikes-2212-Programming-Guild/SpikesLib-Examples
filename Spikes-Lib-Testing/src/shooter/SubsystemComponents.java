@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class SubsystemComponents {
 
 	public static class  Shooter {
-		public static final VictorSP MOTOR = new VictorSP(RobotMap.PWM.ROLLER_MOTOR);
+		public static final VictorSP MOTOR = new VictorSP(RobotMap.PWM.SHOOTER_MOTOR);
 		public static final Encoder ENCODER = new Encoder(RobotMap.DIO.ENCODER_A, RobotMap.DIO.ENCODER_B);
 		
 		
