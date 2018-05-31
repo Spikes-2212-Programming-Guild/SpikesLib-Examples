@@ -13,11 +13,13 @@ public class OI {
 	private Joystick joystick = new Joystick(0);
 
 	public OI() {
-		JoystickButton rollerIn = new JoystickButton(joystick, 2);
-		JoystickButton stopRoller = new JoystickButton(joystick, 3);
+		JoystickButton rollIn = new JoystickButton(joystick, 2);
+		JoystickButton stopRoller = new JoystickButton(joystick, 4);
+		JoystickButton rollOut = new JoystickButton(joystick, 3);
 		
-		rollerIn.whileHeld(new MoveBasicSubsystem(Robot.roller, SubsystemConstants.roller.ROLLER_IN_SPEED));
-		
+		rollIn.whileHeld(new MoveBasicSubsystem(Robot.roller, SubsystemConstants.roller.ROLLER_IN_SPEED));
+		rollOut.whileHeld(new MoveBasicSubsystem(Robot.roller, SubsystemConstants.roller.ROLLER_OUT_SPEED));
+		stopRoller.whenPressed(new MoveBasicSubsystem(Robot.roller, 0));
 	}
 
 }
