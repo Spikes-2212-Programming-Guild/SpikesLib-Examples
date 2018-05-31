@@ -3,10 +3,11 @@ package com.spikes2212.basicSubsystem.unlimitedSubsystem;
 
 import java.util.function.Supplier;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.BasicSubsystem;
+import com.spikes2212.genericsubsystems.utils.limitationFunctions.Limitless;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -29,7 +30,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static BasicSubsystem shooter;
 	public static Supplier<Double> shootingSpeed;
-	public static CANTalon shooterMotor = new CANTalon(RobotMap.CAN.SHOOTER);
+	public static WPI_TalonSRX shooterMotor = new WPI_TalonSRX(RobotMap.CAN.SHOOTER);
 	DashBoardController dbc;
 
 	/**
@@ -39,7 +40,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		shootingSpeed  = ConstantHandler.addConstantDouble("SHOOTING_SPEED", 0.3);
-		shooter = new BasicSubsystem(shooterMotor::set);
+		shooter = new BasicSubsystem(shooterMotor::set, new Limitless());
 		oi = new OI();
 		dbc = new DashBoardController();
 		dbc.addDouble("SHOOTING_SPEED", shooterMotor::get);
