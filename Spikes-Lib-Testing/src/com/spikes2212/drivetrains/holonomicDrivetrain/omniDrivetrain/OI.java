@@ -14,9 +14,9 @@ public class OI {
 	private Joystick driverLeft = new Joystick(1);
 	
 	public OI(){
-		JoystickButton tankControlButton = new JoystickButton(driverRight, 1);
+		JoystickButton arcadeControlButton = new JoystickButton(driverRight, 1);
 		
-		tankControlButton.whileHeld(new DriveArcade(Robot.drivetrain, this::getRightY, this::getLeftX));
+		arcadeControlButton.whileHeld(new DriveArcade(Robot.drivetrain, this::getRightY, this::getLeftX));
 	}
 
 	// receives input, returns the adjusted input for better sensitivity
