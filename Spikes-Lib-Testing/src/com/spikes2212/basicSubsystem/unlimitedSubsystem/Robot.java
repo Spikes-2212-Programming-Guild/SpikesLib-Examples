@@ -43,7 +43,6 @@ public class Robot extends IterativeRobot {
 		shooter = new BasicSubsystem(shooterMotor::set, new Limitless());
 		oi = new OI();
 		dbc = new DashBoardController();
-		dbc.addDouble("SHOOTING_SPEED", shooterMotor::get);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 	}
 
