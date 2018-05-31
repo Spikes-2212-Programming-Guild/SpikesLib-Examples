@@ -5,10 +5,12 @@ import java.util.function.Supplier;
 
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.BasicSubsystem;
+import com.spikes2212.genericsubsystems.commands.MoveBasicSubsystem;
 import com.spikes2212.genericsubsystems.utils.limitationFunctions.TwoLimits;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -39,6 +41,9 @@ public class Robot extends IterativeRobot {
 		// adding the arm's up and down limits' feedback to the dash board
 		dbc.addBoolean("is up", SubsystemComponents.Arm.UPPER_LIMIT::get);
 		dbc.addBoolean("is down", SubsystemComponents.Arm.DOWN_LIMIT::get);
+		
+		SmartDashboard.putData("Move Arm Up", new MoveBasicSubsystem(Robot.arm, SubsystemConstants.Arm.ARM_UP_SPEED));
+		SmartDashboard.putData("Move Arm Down", new MoveBasicSubsystem(Robot.arm, SubsystemConstants.Arm.ARM_DOWN_SPEED));
 	}
 
 	/**
