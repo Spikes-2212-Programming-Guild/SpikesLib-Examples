@@ -3,6 +3,7 @@ package com.spikes2212.basicSubsystem.ulimitedSubsystem.roller;
 
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.BasicSubsystem;
+import com.spikes2212.genericsubsystems.commands.MoveBasicSubsystem;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
@@ -37,11 +38,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		Limitless noLimitsRoller = new Limitless();
 		
-		roller = new BasicSubsystem(SubsystemComponents.Roller.MOTOR::set, noLimitsRoller);
+		roller = new BasicSubsystem(SubsystemComponents.Roller.MOTOR::set, new Limitless());
 		oi = new OI();
 		dbc = new DashBoardController();
+		SmartDashboard.putData("Roll In", new MoveBasicSubsystem(Robot.roller, SubsystemConstants.roller.ROLLER_IN_SPEED));
+		SmartDashboard.putData("Roll Out", new MoveBasicSubsystem(Robot.roller, SubsystemConstants.roller.ROLLER_OUT_SPEED));
+		SmartDashboard.putData("Stop Roller", new MoveBasicSubsystem(Robot.roller, 0));
+	
 	}
 
 	/**
