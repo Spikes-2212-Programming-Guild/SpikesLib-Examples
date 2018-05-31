@@ -20,7 +20,7 @@ public class SubsystemConstants {
 	 * This class contains all of the arm's constants.
 	 * 
 	 * 
-	 * @author Matan
+	 * 
 	 */
 	public static class Arm {
 		public static final Supplier<Double> ARM_DOWN_SPEED = ConstantHandler.addConstantDouble("arm down speed", -0.3);
