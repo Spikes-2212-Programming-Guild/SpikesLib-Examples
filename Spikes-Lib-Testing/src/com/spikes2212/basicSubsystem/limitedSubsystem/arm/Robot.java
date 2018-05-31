@@ -27,17 +27,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		// initializing the arm and its components
-
-		Supplier<Boolean> armUpLimit = SubsystemComponents.Arm.UPPER_LIMIT::get;
-		/*
-		 * for the example we chose that the down limit is default true (normally open)
-		 * so you have to invert it.
-		 */
-		Supplier<Boolean> armDownLimit = () -> !SubsystemComponents.Arm.DOWN_LIMIT.get();
-
-		TwoLimits armLimits = new TwoLimits(armUpLimit, armDownLimit);
-		arm = new BasicSubsystem(SubsystemComponents.Arm.ARM_MOTOR::set, armLimits);
+		arm = new BasicSubsystem(SubsystemComponents.Arm.ARM_MOTOR::set, new TwoLimits(SubsystemComponents.Arm.UPPER_LIMIT::get, SubsystemComponents.Arm.DOWN_LIMIT::get));
 
 		// initializing oi and the dash board controller
 		oi = new OI();
