@@ -13,6 +13,7 @@ public class SubsystemComponents {
 		public static final VictorSP MOTOR = new VictorSP(RobotMap.PWM.ROLLER_MOTOR);
 		public static final Encoder ENCODER = new Encoder(RobotMap.DIO.ENCODER_A, RobotMap.DIO.ENCODER_B);
 		
+		
 		public static final PIDSettings PID_SETTINGS = new PIDSettings(SubsystemConstants.Shooter.KP.get(), SubsystemConstants.Shooter.KI.get(), SubsystemConstants.Shooter.KD.get(), 0, 1);
 		
 	}
