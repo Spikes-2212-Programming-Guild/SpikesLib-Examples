@@ -1,4 +1,4 @@
-package com.spikes2212.drivetrains.tankDrivetrain;
+package tankDrivetrain;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into

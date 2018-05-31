@@ -1,7 +1,8 @@
-package com.spikes2212.drivetrains.tankDrivetrain;
+package tankDrivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.spikes2212.utils.DoubleSpeedcontroller;
+
 
 public class SubsystemComponents {
 
