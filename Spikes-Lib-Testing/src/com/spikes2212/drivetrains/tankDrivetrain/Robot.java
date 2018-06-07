@@ -1,5 +1,5 @@
 
-package tankDrivetrain;
+package com.spikes2212.drivetrains.tankDrivetrain;
 
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
