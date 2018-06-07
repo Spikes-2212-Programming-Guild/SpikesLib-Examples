@@ -15,7 +15,7 @@ public class OI {
 	public OI() {
 		JoystickButton shoot = new JoystickButton(joystick, 2);
 
-		shoot.whenPressed(new MoveBasicSubsystemWithPIDForSpeed(Robot.shooter, SubsystemComponents.Shooter.ENCODER, SubsystemConstants.Shooter.SHOOT_SPEED, SubsystemComponents.Shooter.PID_SETTINGS, SubsystemConstants.Shooter.SHOOT_ACCELERATION.get()));
+		shoot.toggleWhenPressed(new MoveBasicSubsystemWithPIDForSpeed(Robot.shooter, SubsystemComponents.Shooter.ENCODER, SubsystemConstants.Shooter.SHOOT_SPEED, SubsystemComponents.Shooter.PID_SETTINGS, SubsystemConstants.Shooter.SHOOT_ACCELERATION.get()));
 		
 	}
 
