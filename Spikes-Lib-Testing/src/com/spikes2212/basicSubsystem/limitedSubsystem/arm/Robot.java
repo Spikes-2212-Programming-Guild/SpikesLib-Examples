@@ -4,9 +4,9 @@ package com.spikes2212.basicSubsystem.limitedSubsystem.arm;
 import java.util.function.Supplier;
 
 import com.spikes2212.dashboard.DashBoardController;
-import com.spikes2212.genericsubsystems.BasicSubsystem;
-import com.spikes2212.genericsubsystems.commands.MoveBasicSubsystem;
-import com.spikes2212.genericsubsystems.utils.limitationFunctions.TwoLimits;
+import com.spikes2212.genericsubsystems.basicSubsystem.BasicSubsystem;
+import com.spikes2212.genericsubsystems.basicSubsystem.commands.MoveBasicSubsystem;
+import com.spikes2212.genericsubsystems.basicSubsystem.utils.limitationFunctions.TwoLimits;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
