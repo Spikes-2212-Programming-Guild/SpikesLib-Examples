@@ -1,10 +1,10 @@
 
-package tankDrivetrain;
+package com.spikes2212.drivetrains.tankDrivetrain;
 
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
-import com.spikes2212.genericsubsystems.utils.InvertedConsumer;
+import com.spikes2212.utils.InvertedConsumer;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
