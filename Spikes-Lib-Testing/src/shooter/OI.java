@@ -1,8 +1,6 @@
 package shooter;
 
-import com.spikes2212.genericsubsystems.commands.MoveBasicSubsystem;
-import com.spikes2212.genericsubsystems.commands.MoveBasicSubsystemWithPIDForSpeed;
-import com.spikes2212.utils.PIDSettings;
+import com.spikes2212.genericsubsystems.basicSubsystem.commands.MoveBasicSubsystemWithPIDForSpeed;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

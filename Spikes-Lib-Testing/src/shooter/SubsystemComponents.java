@@ -1,7 +1,5 @@
 package shooter;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.spikes2212.utils.DoubleSpeedcontroller;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.Encoder;
