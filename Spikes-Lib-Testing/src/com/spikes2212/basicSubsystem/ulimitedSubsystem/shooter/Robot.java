@@ -1,5 +1,5 @@
 
-package shooter;
+package com.spikes2212.basicSubsystem.ulimitedSubsystem.shooter;
 
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.basicSubsystem.BasicSubsystem;

@@ -1,4 +1,4 @@
-package shooter;
+package com.spikes2212.basicSubsystem.ulimitedSubsystem.shooter;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
