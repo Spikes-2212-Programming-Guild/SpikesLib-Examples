@@ -1,8 +1,6 @@
 
 package com.spikes2212.basicSubsystem.limitedSubsystem.arm;
 
-import java.util.function.Supplier;
-
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.basicSubsystem.BasicSubsystem;
 import com.spikes2212.genericsubsystems.basicSubsystem.commands.MoveBasicSubsystem;
