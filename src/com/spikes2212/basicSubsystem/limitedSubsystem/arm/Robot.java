@@ -27,7 +27,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		arm = new BasicSubsystem(SubsystemComponents.Arm.ARM_MOTOR::set, new TwoLimits(SubsystemComponents.Arm.UPPER_LIMIT::get, SubsystemComponents.Arm.DOWN_LIMIT::get));
+		arm = new BasicSubsystem(SubsystemComponents.Arm.ARM_MOTOR::set, new TwoLimits(SubsystemComponents.Arm.UPPER_LIMIT::get, 
+											       SubsystemComponents.Arm.DOWN_LIMIT::get));
 
 		// initializing oi and the dash board controller
 		oi = new OI();
