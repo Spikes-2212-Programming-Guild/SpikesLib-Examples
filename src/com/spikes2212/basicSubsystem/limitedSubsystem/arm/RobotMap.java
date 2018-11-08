@@ -8,7 +8,7 @@ package com.spikes2212.basicSubsystem.limitedSubsystem.arm;
  */
 public class RobotMap {
 	public interface CAN {
-		public static final int ARM = 5;
+		public static final int ARM = 4;
 	}
 	
 	public interface DIO{
